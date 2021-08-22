@@ -133,28 +133,7 @@
                                                                         <th>Delete</th>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody>
-                                                                    <tr th:each="user : ${usersList}">
-                                                                        <td th:text="${user.id}">ID</td>
-                                                                        <td th:text="${user.username}">Username</td>
-                                                                        <td th:text="${user.firstName}">First Name</td>
-                                                                        <td th:text="${user.lastName}">Last Name</td>
-                                                                        <td th:text="${user.email}">E-mail</td>
-                                                                        <td th:text="${user.age}">Age</td>
-                                                                        <td>
-                                                                            <th:block th:each="role : ${user.roles}">
-                                                                                <span th:text="|${role.roleName.substring(5)} |">Roles</span>
-                                                                            </th:block>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a th:href="@{/find/(id=${user.id})}"
-                                                                               class="btn btn-info text-white eBtn">Edit</a>
-                                                                        </td>
-                                                                        <td><a th:href="@{/find/(id=${user.id})}"
-                                                                               class="btn btn-danger dBtn">Delete</a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
+                                                                    <tbody class="table-users"></tbody>
                                                                 </table>
                                                             </div>
                                                         </div>
@@ -169,98 +148,86 @@
                                                         <div class="row border" style="background-color: #ffffff;">
                                                             <div class="col">
                                                                 <div class="container text-center">
-                                                                    <form th:action="@{/}" th:method="POST"
-                                                                          th:object="${user}">
+                                                                    <form class = "add-form">
                                                                         <div class="row">
-                                                                            <div class="col"><br><label class="fw-bold"
-                                                                                                        for="new_username">Username</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col"><input id="new_username"
-                                                                                                    th:field="*{name}"
-                                                                                                    type="text"/></div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="row">
-                                                                            <div class="col"><label class="fw-bold"
-                                                                                                    for="new_password">Password</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col"><input id="new_password"
-                                                                                                    th:field="*{password}"
-                                                                                                    type="password"/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="row">
-                                                                            <div class="col"><label class="fw-bold"
-                                                                                                    for="new_first_name">First
-                                                                                Name</label></div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col"><input id="new_first_name"
-                                                                                                    th:field="*{firstName}"
-                                                                                                    type="text"/></div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="row">
-                                                                            <div class="col"><label class="fw-bold"
-                                                                                                    for="new_last_name">Last
-                                                                                Name</label></div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col"><input id="new_last_name"
-                                                                                                    th:field="*{lastName}"
-                                                                                                    type="text"/></div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="row">
-                                                                            <div class="col"><label class="fw-bold"
-                                                                                                    for="new_email">Email</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col"><input id="new_email"
-                                                                                                    th:field="*{email}"
-                                                                                                    type="text"/></div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="row">
-                                                                            <div class="col"><label class="fw-bold"
-                                                                                                    for="new_age">Age</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col"><input id="new_age"
-                                                                                                    th:field="*{age}"
-                                                                                                    type="number"/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <div class="row">
-                                                                            <div class="col"><label class="fw-bold"
-                                                                                                    for="new_roles">Role</label>
+                                                                            <div class="col">
+                                                                                <br>
+                                                                                <label class="fw-bold" for="new_username">Username</label>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="col">
-                                                                                <select id="new_roles"
-                                                                                        multiple="multiple"
-                                                                                        size="3" th:field="*{roles}">
-                                                                                    <option th:each="role : ${rolesList}"
-                                                                                            th:text="${role.roleName.substring(5)}"
-                                                                                            th:value="${role.id}">
-                                                                                    </option>
-                                                                                </select>
+                                                                                <input id="new_username" type="text"/></div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <label class="fw-bold" for="new_password">Password</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input id="new_password" type="password"/>
                                                                             </div>
                                                                         </div>
                                                                         <br>
                                                                         <div class="row">
-                                                                            <div class="col"><input type="submit"
-                                                                                                    class="btn btn-success fw-bold"
-                                                                                                    value="Add new user">
+                                                                            <div class="col">
+                                                                                <label class="fw-bold" for="new_first_name">First Name</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input id="new_first_name" type="text"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <label class="fw-bold" for="new_last_name">Last Name</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input id="new_last_name" type="text"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="row">
+                                                                            <div class="col"><label class="fw-bold" for="new_email">Email</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input id="new_email" type="text"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <label class="fw-bold" for="new_age">Age</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input id="new_age" type="number"/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <label class="fw-bold" for="new_roles">Role</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <select id="new_roles" class="col-form-label role-select-add" multiple="multiple" size="3"></select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <input type="submit" class="btn btn-success fw-bold" value="Add new user">
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
@@ -397,8 +364,7 @@
 </div>
 
 <!--Modal form for edit user-->
-<div class="editForm">
-    <form th:action="@{/}" th:method="PUT" th:object="${user}">
+    <form class="edit-form">
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -409,59 +375,38 @@
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
-
                         <div class="mb-3">
                             <label for="edit_id" class="col-form-label fw-bold">ID</label>
-                            <input type="text" readonly class="form-control" id="edit_id" name="edit_id"
-                                   th:field="*{id}" value=""/>
+                            <input type="text" readonly class="form-control" id="edit_id" name="edit_id"/>
                         </div>
                         <div class="mb-3">
                             <label for="edit_username" class="col-form-label fw-bold">Username</label>
-                            <input type="text" class="form-control" id="edit_username" name="edit_username"
-                                   th:field="*{name}"
-                                   value=""/>
+                            <input type="text" class="form-control" id="edit_username" name="edit_username"/>
                         </div>
                         <div class="mb-3">
                             <label for="edit_password" class="col-form-label fw-bold">Password</label>
-                            <input type="password" class="form-control" id="edit_password" th:field="*{password}"
-                                   name="edit_password"
-                                   value=""/>
+                            <input type="password" class="form-control" id="edit_password" name="edit_password"/>
                         </div>
                         <div class="mb-3">
                             <label for="edit_first_name" class="col-form-label fw-bold">First Name</label>
-                            <input type="text" class="form-control" id="edit_first_name" th:field="*{firstName}"
-                                   name="edit_first_name"
-                                   value=""/>
+                            <input type="text" class="form-control" id="edit_first_name" name="edit_first_name"/>
                         </div>
                         <div class="mb-3">
                             <label for="edit_last_name" class="col-form-label fw-bold">Last Name</label>
-                            <input type="text" class="form-control" id="edit_last_name" th:field="*{lastName}"
-                                   name="edit_last_name"
-                                   value=""/>
+                            <input type="text" class="form-control" id="edit_last_name" name="edit_last_name"/>
                         </div>
                         <div class="mb-3">
                             <label for="edit_email" class="col-form-label fw-bold">E-mail</label>
-                            <input type="email" class="form-control" id="edit_email" th:field="*{email}"
-                                   name="edit_email"
-                                   value=""/>
+                            <input type="email" class="form-control" id="edit_email" name="edit_email"/>
                         </div>
                         <div class="mb-3">
                             <label for="edit_age" class="col-form-label fw-bold">Age</label>
-                            <input type="number" class="form-control" id="edit_age" th:field="*{age}" name="edit_age"
-                                   value=""/>
+                            <input type="number" class="form-control" id="edit_age" name="edit_age"/>
                         </div>
                         <div class="mb-3">
                             <label for="edit_roles" class="col-form-label fw-bold">Role</label>
                             <br>
-                            <select id="edit_roles" class="col-form-label" name="edit_roles" multiple="multiple"
-                                    th:field="*{roles}"
-                                    th:size="${rolesList.size()}">
-                                <option th:each="role : ${rolesList}"
-                                        th:selected="${user.getRoles().contains(role)}"
-                                        th:text="${role.roleName.substring(5)}"
-                                        th:value="${role.id}">
-                                </option>
-                            </select>
+                            <select id="edit_roles" class="col-form-label role-select-edit" name="edit_roles" multiple="multiple" size="2"></select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -473,11 +418,9 @@
             </div>
         </div>
     </form>
-</div>
 
 <!--Modal form for delete user-->
-<div class="deleteForm">
-    <form th:action="@{/}" th:method="DELETE" th:object="${user}">
+    <form class="delete-form">
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
@@ -490,51 +433,32 @@
                     <div class="modal-body text-center">
                         <div class="mb-3">
                             <label for="delete_id" class="col-form-label fw-bold">ID</label>
-                            <input type="text" readonly class="form-control" id="delete_id" name="id" th:field="*{id}" value=""/>
+                            <input type="text" readonly class="form-control" id="delete_id" name="id" value=""/>
                         </div>
                         <div class="mb-3">
                             <label for="delete_username" class="col-form-label fw-bold">Username</label>
-                            <input type="text" readonly class="form-control" id="delete_username" name="username"
-                                   th:field="*{name}"
-                                   value=""/>
+                            <input type="text" readonly class="form-control" id="delete_username" name="username" value=""/>
                         </div>
                         <div class="mb-3">
                             <label for="delete_first_name" class="col-form-label fw-bold">First Name</label>
-                            <input type="text" readonly class="form-control" id="delete_first_name"
-                                   th:field="*{firstName}"
-                                   name="first_name"
-                                   value=""/>
+                            <input type="text" readonly class="form-control" id="delete_first_name" name="first_name" value=""/>
                         </div>
                         <div class="mb-3">
                             <label for="delete_last_name" class="col-form-label fw-bold">Last Name</label>
-                            <input type="text" readonly class="form-control" id="delete_last_name"
-                                   th:field="*{lastName}"
-                                   name="last_name"
-                                   value=""/>
+                            <input type="text" readonly class="form-control" id="delete_last_name" name="last_name" value=""/>
                         </div>
                         <div class="mb-3">
                             <label for="delete_email" class="col-form-label fw-bold">E-mail</label>
-                            <input type="email" readonly class="form-control" id="delete_email" th:field="*{email}"
-                                   name="email"
-                                   value=""/>
+                            <input type="email" readonly class="form-control" id="delete_email" name="email" value=""/>
                         </div>
                         <div class="mb-3">
                             <label for="delete_age" class="col-form-label fw-bold">Age</label>
-                            <input type="number" readonly class="form-control" id="delete_age" th:field="*{age}"
-                                   name="age" value=""/>
+                            <input type="number" readonly class="form-control" id="delete_age" name="age" value=""/>
                         </div>
                         <div class="mb-3">
                             <label for="delete_roles" class="col-form-label fw-bold">Role</label>
                             <br>
-                            <select id="delete_roles" disabled class="col-form-label" multiple="multiple"
-                                    th:field="*{roles}"
-                                    th:size="${rolesList.size()}">
-                                <option th:each="role : ${rolesList}"
-                                        th:selected="${user.getRoles().contains(role)}"
-                                        th:text="${role.roleName.substring(5)}"
-                                        th:value="${role.id}">
-                                </option>
-                            </select>
+                            <select id="delete_roles" disabled class="col-form-label role-select-delete" multiple="multiple" size="2"></select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -546,7 +470,6 @@
             </div>
         </div>
     </form>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

@@ -30,27 +30,5 @@ public class UserController {
         return "index";
     }
 
-    @PostMapping("/")
-    public String createUser(@ModelAttribute("user") User user) {
-        userService.add(user);
-        return "redirect:/";
-    }
 
-    @GetMapping("/find")
-    @ResponseBody
-    public User findUser(int id) {
-        return userService.get(id);
-    }
-
-    @PutMapping("/")
-    public String updateUser(@ModelAttribute("user") User user) {
-        userService.update(user);
-        return "redirect:/";
-    }
-
-    @DeleteMapping("/")
-    public String deleteUser(@ModelAttribute("user") User user) {
-        userService.delete(user);
-        return "redirect:/";
-    }
 }

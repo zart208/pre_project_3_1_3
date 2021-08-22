@@ -20,11 +20,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void add(User user) {
+    public User add(User user) {
         if (getByName(user.getUsername()) == null) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
+            return userRepository.save(user);
         }
+        return null;
     }
 
     @Override
@@ -38,13 +39,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) {
-        if (user.getPassword() == "") {
+    public User update(User user) {
+        if (user.getPassword() == "" || user.getPassword() == null) {
             user.setPassword(get(user.getId()).getPassword());
         } else {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
